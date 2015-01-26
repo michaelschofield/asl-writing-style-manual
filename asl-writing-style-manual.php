@@ -46,7 +46,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-asl-writing-style-manual.p
 function run_asl_writing_style_manual() {
 
 	$plugin = new ASL_Writing_Style_Manual();
-	$plugin->run();
 
 }
 run_asl_writing_style_manual();

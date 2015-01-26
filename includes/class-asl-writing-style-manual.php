@@ -30,16 +30,6 @@
 class ASL_Writing_Style_Manual {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      ASL_Writing_Style_Manual_Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
-
-	/**
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
@@ -58,6 +48,22 @@ class ASL_Writing_Style_Manual {
 	protected $version;
 
 	/**
+	 * Define the path of this plugin
+	 * 
+	 * @since 	1.0.0
+	 * @access 	protected
+	 */
+	protected $path;
+
+	/**
+	 * Define the URL of this plugin
+	 *
+	 * @since 	1.0.0
+	 * @access 	protected
+	 */
+	protected $url;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -69,148 +75,58 @@ class ASL_Writing_Style_Manual {
 	public function __construct() {
 
 		$this->asl_writing_style_manual = 'asl-writing-style-manual';
-		$this->version = '1.0.0';
+		$this->path = dirname( __FILE__ );
+		$this->url 	= WP_PLUGIN_URL . '/';
+		$this->version = '0.0.1';
 
-		$this->load_dependencies();
-		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
-	}
-
-	/**
-	 * Load the required dependencies for this plugin.
-	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - ASL_Writing_Style_Manual_Loader. Orchestrates the hooks of the plugin.
-	 * - ASL_Writing_Style_Manual_i18n. Defines internationalization functionality.
-	 * - ASL_Writing_Style_Manual_Admin. Defines all hooks for the dashboard.
-	 * - ASL_Writing_Style_Manual_Public. Defines all hooks for the public side of the site.
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function load_dependencies() {
-
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-asl-writing-style-manual-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-asl-writing-style-manual-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the Dashboard.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-asl-writing-style-manual-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-asl-writing-style-manual-public.php';
-
-		$this->loader = new ASL_Writing_Style_Manual_Loader();
+		add_action( 'init', array( $this, 'create_the_example_post_type') );
 
 	}
 
 	/**
-	 * Define the locale for this plugin for internationalization.
+	 * Create a custom post type for individual examples
 	 *
-	 * Uses the ASL_Writing_Style_Manual_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * @since 	1.0.0
 	 */
-	private function set_locale() {
 
-		$plugin_i18n = new ASL_Writing_Style_Manual_i18n();
-		$plugin_i18n->set_domain( $this->get_asl_writing_style_manual() );
+	public function create_the_example_post_type() {
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		register_post_type( 
 
-	}
+			'examples', array(
 
-	/**
-	 * Register all of the hooks related to the dashboard functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_admin_hooks() {
+			'labels' => 
+				array(
+					'name' => __('Examples' ), 
+					'singular_name' => __('Example' ), 
+					'all_items' => __('All Examples' ), 
+					'add_new' => __('Add New Example' ),
+					'add_new_item' => __('Add New Example' ), 
+					'edit' => __( 'Edit'  ), 
+					'edit_item' => __('Edit Example' ), 
+					'new_item' => __('New Example' ), 
+					'view_item' => __('View Example' ), 
+					'search_items' => __('Search Examples' ),
+					'not_found' =>  __('Nothing found.' ), 
+					'not_found_in_trash' => __('Nothing found in the trash' ), 
+					'parent_item_colon' => ''
+				),
 
-		$plugin_admin = new ASL_Writing_Style_Manual_Admin( $this->get_asl_writing_style_manual(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new ASL_Writing_Style_Manual_Public( $this->get_asl_writing_style_manual(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-	}
-
-	/**
-	 * Run the loader to execute all of the hooks with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
-	public function run() {
-		$this->loader->run();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_asl_writing_style_manual() {
-		return $this->asl_writing_style_manual;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    ASL_Writing_Style_Manual_Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
+			'description' => __( 'Usage examples' ), /* Custom Type Description */
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true,
+			'query_var' => true,
+			'menu_position' => 1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_icon' => $this->url . '/library/images/custom-post-icon.png', /* the icon for the custom post type menu */
+			'has_archive' => 'examples', /* you can rename the slug here */
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			/* the next one is important, it tells what's enabled in the post editor */
+			'supports' => array( 'title', 'editor', 'thumbnail', 'revisions', 'sticky', 'excerpt')
+		 	) /* end of options */
+		); /* end of register post type */
 	}
 
 }
