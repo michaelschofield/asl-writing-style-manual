@@ -29,27 +29,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-asl-writing-style-manual-activator.php
- */
-function activate_asl_writing_style_manual() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-asl-writing-style-manual-activator.php';
-	ASL_Writing_Style_Manual_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-asl-writing-style-manual-deactivator.php
- */
-function deactivate_asl_writing_style_manual() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-asl-writing-style-manual-deactivator.php';
-	ASL_Writing_Style_Manual_Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_asl_writing_style_manual' );
-register_deactivation_hook( __FILE__, 'deactivate_asl_writing_style_manual' );
-
-/**
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
