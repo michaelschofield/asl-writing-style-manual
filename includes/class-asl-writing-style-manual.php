@@ -36,7 +36,7 @@ class ASL_Writing_Style_Manual {
 	 * @access   protected
 	 * @var      string    $asl_writing_style_manual    The string used to uniquely identify this plugin.
 	 */
-	protected $asl_writing_style_manual;
+	protected $asl_writing_style_manual; //plugin slug
 
 	/**
 	 * The current version of the plugin.
@@ -61,7 +61,8 @@ class ASL_Writing_Style_Manual {
 	 * @since 	1.0.0
 	 * @access 	protected
 	 */
-	protected $url;
+
+	protected $loader;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -75,58 +76,38 @@ class ASL_Writing_Style_Manual {
 	public function __construct() {
 
 		$this->asl_writing_style_manual = 'asl-writing-style-manual';
-		$this->path = dirname( __FILE__ );
-		$this->url 	= WP_PLUGIN_URL . '/';
 		$this->version = '0.0.1';
 
-		add_action( 'init', array( $this, 'create_the_example_post_type') );
+		$this->load_dependences();
+		$this->define_admin_hooks();
 
 	}
 
-	/**
-	 * Create a custom post type for individual examples
-	 *
-	 * @since 	1.0.0
-	 */
+	private function load_dependences() {
 
-	public function create_the_example_post_type() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-asl-writing-style-manual-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-asl-writing-style-manual-loader.php';
+		$this->loader = new ASL_Writing_Style_Manual_Loader();
 
-		register_post_type( 
+	}
 
-			'examples', array(
+	private function define_admin_hooks() {
 
-			'labels' => 
-				array(
-					'name' => __('Examples' ), 
-					'singular_name' => __('Example' ), 
-					'all_items' => __('All Examples' ), 
-					'add_new' => __('Add New Example' ),
-					'add_new_item' => __('Add New Example' ), 
-					'edit' => __( 'Edit'  ), 
-					'edit_item' => __('Edit Example' ), 
-					'new_item' => __('New Example' ), 
-					'view_item' => __('View Example' ), 
-					'search_items' => __('Search Examples' ),
-					'not_found' =>  __('Nothing found.' ), 
-					'not_found_in_trash' => __('Nothing found in the trash' ), 
-					'parent_item_colon' => ''
-				),
+		$admin = new ASL_Writing_Style_Manual_Admin( $this->get_version() );
+		$this->loader->add_action( 'init', $admin, 'create_the_reference_post_type' );
+		$this->loader->add_action( 'init', $admin, 'create_the_formatting_post_type' );
+		$this->loader->add_action( 'init', $admin, 'create_the_usage_post_type' );
 
-			'description' => __( 'Usage examples' ), /* Custom Type Description */
-			'public' => true,
-			'publicly_queryable' => true,
-			'exclude_from_search' => false,
-			'show_ui' => true,
-			'query_var' => true,
-			'menu_position' => 1, /* this is what order you want it to appear in on the left hand side menu */ 
-			'menu_icon' => $this->url . '/library/images/custom-post-icon.png', /* the icon for the custom post type menu */
-			'has_archive' => 'examples', /* you can rename the slug here */
-			'capability_type' => 'post',
-			'hierarchical' => false,
-			/* the next one is important, it tells what's enabled in the post editor */
-			'supports' => array( 'title', 'editor', 'thumbnail', 'revisions', 'sticky', 'excerpt')
-		 	) /* end of options */
-		); /* end of register post type */
+	}
+
+	public function run() {
+
+		$this->loader->run();
+
+	}
+
+	public function get_version() {
+		return $this->version;
 	}
 
 }
