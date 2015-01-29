@@ -100,6 +100,11 @@ class ASL_Writing_Style_Manual {
 
 	}
 
+	private function define_public_hooks() {
+		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );
+		$this->loader->add_filter( 'single_template', $public, 'create_single-reference_view' );
+	}
+
 	public function run() {
 
 		$this->loader->run();
