@@ -12,7 +12,7 @@ class ASL_Writing_Style_Manual_Admin {
 
 		register_post_type( 
 
-			'references', array(
+			'reference', array(
 
 			'labels' => 
 				array(

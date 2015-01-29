@@ -80,13 +80,15 @@ class ASL_Writing_Style_Manual {
 
 		$this->load_dependences();
 		$this->define_admin_hooks();
+		$this->define_public_hooks();
 
 	}
 
 	private function load_dependences() {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-asl-writing-style-manual-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-asl-writing-style-manual-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-asl-writing-style-manual-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'core/class-asl-writing-style-manual-loader.php';
 		$this->loader = new ASL_Writing_Style_Manual_Loader();
 
 	}
@@ -102,7 +104,7 @@ class ASL_Writing_Style_Manual {
 
 	private function define_public_hooks() {
 		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );
-		$this->loader->add_filter( 'single_template', $public, 'create_single-reference_view' );
+		$this->loader->add_filter( 'single_template', $public, 'create_single_reference_view' );
 	}
 
 	public function run() {

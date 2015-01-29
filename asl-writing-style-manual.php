@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-asl-writing-style-manual.php';
+require plugin_dir_path( __FILE__ ) . 'core/class-asl-writing-style-manual.php';
 
 /**
  * Begins execution of the plugin.
