@@ -105,6 +105,8 @@ class ASL_Writing_Style_Manual {
 	private function define_public_hooks() {
 		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_reference_view' );
+		$this->loader->add_filter( 'single_template', $public, 'create_single_formatting_view' );
+		$this->loader->add_filter( 'single_template', $public, 'create_single_usage_view' );
 	}
 
 	public function run() {

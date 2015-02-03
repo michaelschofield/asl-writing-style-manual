@@ -37,7 +37,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'reference', /* you can rename the slug here */
 			'capability_type' => 'post',
@@ -77,7 +77,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'formatting', /* you can rename the slug here */
 			'capability_type' => 'post',
@@ -117,7 +117,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 2, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'usage', /* you can rename the slug here */
 			'capability_type' => 'post',
