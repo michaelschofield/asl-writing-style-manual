@@ -7,11 +7,8 @@
 			    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 			    <?php
-			    $references 		= get_field( 'reference-list_examples' );
-			    $citations 			= get_field( 'in-text_examples' );
 			    $fischler			= get_post_meta( get_the_ID(), 'fischler_rule', true );
 			    $notes 				= get_post_meta( get_the_ID(), 'asl_note', true );
-			    $primary_example	= ( $references ? $references[0]['reference_example'] : null );
 			    ?>
 			
 			    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
@@ -22,40 +19,12 @@
 							<?php echo ( has_excerpt() ? '<p>' . get_the_excerpt() . '</p>' : '' ); ?>
 						</header>
 
-					<?php if ( $primary_example ) : ?>
-						<figure class="center-grid eightcol">
-							<span class="epsilon">
-							<?php echo strip_tags( $primary_example, '<b><i><em><strong>' ); ?>
-							</span>
-						</figure>
-					<?php endif; ?>
-
 					</div>
 			
 				    <section class="center-grid clearfix eightcol post-content hero" itemprop="articleBody">
+
+				    	<?php the_content(); ?>
 				    	
-				    	<?php if ( $references ) : ?>
-				    	<h2 class="gamma">Reference Examples</h2>
-
-					    	<?php foreach( $references as $reference ) : ?>
-					    	<figure class="epsilon">
-					    		<?php echo strip_tags( $reference['reference_example'], '<b><i><em><strong>' ); ?>
-					    	</figure>
-
-					    	<?php endforeach; ?>
-				    	<?php endif; ?>
-
-					    <?php if ( $citations ) : ?>
-					    <h2 class="gamma">In-Text Citations</h2>
-
-					   		<?php foreach( $citations as $citation ) : ?>
-					   		<figure class="epsilon">
-					   			<?php echo strip_tags( $citation['in-text_example'], '<b><i><em>strong>' ); ?>
-					   		</figure>
-					   		<?php endforeach; ?>
-
-				   		<?php endif; ?>
-
 				   		<?php if ( $fischler ) :  ?>
 				   		<h2 class="gamma">Fischler Rules</h2>
 				   		<?php echo '<p>' . $fischler . '</p>'; ?>

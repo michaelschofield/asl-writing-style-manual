@@ -99,6 +99,7 @@ class ASL_Writing_Style_Manual {
 		$this->loader->add_action( 'init', $admin, 'create_the_reference_post_type' );
 		$this->loader->add_action( 'init', $admin, 'create_the_formatting_post_type' );
 		$this->loader->add_action( 'init', $admin, 'create_the_usage_post_type' );
+		$this->loader->add_action( 'init', $admin, 'register_post_type_custom_fields' );
 
 	}
 
