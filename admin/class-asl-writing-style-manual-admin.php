@@ -6,8 +6,108 @@ class ASL_Writing_Style_Manual_Admin {
 
 	public function __construct( $version ) {
 		$this->version = $version;
+
+
+		add_shortcode( 'apa_example', array( &$this, 'embed_reference_example_shortcode') );
 	}
 
+	public function embed_reference_example_shortcode( $atts )  {
+		ob_start();
+
+		$a = shortcode_atts(array(
+			'id' => ''
+		), $atts );
+
+		$the_query = new WP_Query( array(
+			'post_type' => 'reference',
+			'p' => $a['id']
+		) );
+
+		if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post();
+				    
+	    $categories 		= get_the_category();
+	    $references 		= get_field( 'reference-list_examples' );
+	    $citations 			= get_field( 'in-text_examples' );
+	    $fischler			= get_post_meta( get_the_ID(), 'fischler_rule', true );
+	    $notes 				= get_field( 'asl_note' );
+	    $primary_example	= ( $references ? $references[0]['reference_example'] : null ); ?>
+		
+		<div class="card--alt col--centered clearfix">
+
+			<header>
+				<h1 class="gamma" itemprop="headline"><?php the_title(); ?></h1>
+				
+				<?php  echo ( has_excerpt() ? '<p>' . get_the_excerpt() . '</p>' : '' ); ?>
+			</header>
+
+
+			<?php if ( $primary_example ) : ?>
+			<figure class="citation__example">
+				<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>							
+			</figure>
+			<?php endif; ?>
+
+			<section class="accordion">
+
+				<?php if ( $notes ) : ?>
+				<section class="accordion__section" id="<?php echo get_the_ID() ?>-notes">
+					<a href="#<?php echo get_the_ID() ?>-notes">
+						<h2 class="accordion__section__title">Notes</h2>
+					</a>
+
+					<div class="accordion__section__content">
+						<?php echo strip_tags( $notes, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>
+					</div>
+
+				</section>
+				<?php endif; ?>
+
+		    	<?php if ( $references ) : ?>
+				<section class="accordion__section" id="<?php echo get_the_ID() ?>-more-examples">
+					<a href="#<?php echo get_the_ID() ?>-more-examples">
+						<h2 class="accordion__section__title">More Examples</h2>
+					</a>
+
+					<div class="accordion__section__content">
+
+				    	<?php foreach( $references as $reference ) : ?>
+				    	<figure class="citation__example">
+				    		<?php echo strip_tags( $reference['reference_example'], '<b><i><em><strong><br><p>' ); ?>
+				    	</figure>
+				    	<?php endforeach; ?>
+
+			    	</div>
+
+				</section>
+				<?php endif; ?>
+
+				<?php if ( $fischler ) : ?>
+				<section class="accordion__section" id="<?php echo get_the_ID() ?>-fischler-rules">
+					<a href="#<?php echo get_the_ID() ?>-fischler-rules">
+						<h2 class="accordion__section__title">Fischler Rules</h2>
+					</a>
+
+					<div class="accordion__section__content">
+						<?php echo '<p>' . $fischler . '</p>'; ?>
+					</div>
+
+				</section>
+				<?php endif; ?>
+			</section>
+
+		</div><!--/.card-->
+
+		<?php
+
+
+		endwhile;
+		endif;
+
+		wp_reset_query();
+
+		return ob_get_clean();
+	}
+	
 	public function create_the_reference_post_type() {
 
 		register_post_type( 
@@ -145,7 +245,7 @@ class ASL_Writing_Style_Manual_Admin {
 						'name' => 'fischler_rule',
 						'type' => 'wysiwyg',
 						'default_value' => '',
-						'toolbar' => 'basic',
+						'toolbar' => 'full',
 						'media_upload' => 'no',
 					),
 				),
@@ -254,7 +354,7 @@ class ASL_Writing_Style_Manual_Admin {
 								'type' => 'wysiwyg',
 								'column_width' => 100,
 								'default_value' => '',
-								'toolbar' => 'basic',
+								'toolbar' => 'full',
 								'media_upload' => 'no',
 							),
 						),

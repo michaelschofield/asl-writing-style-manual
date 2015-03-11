@@ -95,7 +95,7 @@ class ASL_Writing_Style_Manual {
 
 	private function define_admin_hooks() {
 
-		$admin = new ASL_Writing_Style_Manual_Admin( $this->get_version() );
+		$admin = new ASL_Writing_Style_Manual_Admin( $this->get_version() );		
 		$this->loader->add_action( 'init', $admin, 'create_the_reference_post_type' );
 		$this->loader->add_action( 'init', $admin, 'create_the_formatting_post_type' );
 		$this->loader->add_action( 'init', $admin, 'create_the_usage_post_type' );
@@ -104,7 +104,9 @@ class ASL_Writing_Style_Manual {
 	}
 
 	private function define_public_hooks() {
-		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );
+		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );		
+		$this->loader->add_action( 'init', $public, 'enqueue_unique_styles' );
+		$this->loader->add_filter( 'search_template', $public, 'replace_search_results_template' );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_reference_view' );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_formatting_view' );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_usage_view' );
