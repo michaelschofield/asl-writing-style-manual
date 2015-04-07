@@ -9,6 +9,15 @@ class ASL_Writing_Style_Manual_Admin {
 
 
 		add_shortcode( 'apa_example', array( &$this, 'embed_reference_example_shortcode') );
+		add_shortcode( 'example', array( &$this, 'create_example_shortcode' ) );
+	}
+
+	public function create_example_shortcode( $atts, $the_example = null ) {
+		$a = shortcode_atts( array(
+			'indent' => 'false'
+		), $atts );
+
+		return "<figure class='citation__example" . ( $a['indent'] == 'true' ? '' : '--alt' ) . "'><p>$the_example</p></figure>";
 	}
 
 	public function embed_reference_example_shortcode( $atts )  {
