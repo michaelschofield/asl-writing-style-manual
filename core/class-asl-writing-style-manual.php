@@ -106,6 +106,9 @@ class ASL_Writing_Style_Manual {
 	private function define_public_hooks() {
 		$public = new ASL_Writing_Style_Manual_Public( $this->get_version() );		
 		$this->loader->add_action( 'init', $public, 'enqueue_unique_styles' );
+		$this->loader->add_action( 'init', $public, 'enqueue_unique_scripts' );
+		$this->loader->add_action( 'wp_ajax_nopriv_asl_writing_style_manual_search_fetch_results', $public, 'asl_writing_style_manual_search_fetch_results' );
+		$this->loader->add_action( 'wp_ajax_asl_writing_style_manual_search_fetch_results', $public, 'asl_writing_style_manual_search_fetch_results' );				
 		$this->loader->add_filter( 'search_template', $public, 'replace_search_results_template' );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_reference_view' );
 		$this->loader->add_filter( 'single_template', $public, 'create_single_formatting_view' );
