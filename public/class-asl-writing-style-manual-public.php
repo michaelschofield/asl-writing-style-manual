@@ -28,6 +28,8 @@ class ASL_Writing_Style_Manual_Public {
 
 	public function replace_search_results_template( $single ) {
 
+		
+
 		if ( is_search() ) {
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/search.php';
 		}

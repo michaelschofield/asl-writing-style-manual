@@ -2,17 +2,6 @@
 	
 	<div id="content">
 
-    	<section class="background-base has-background hero">
-			<form class="form" role="form">
-				<ul>
-					<li class="form__field">
-						<label class="form__label">How do I cite</label>
-						<input class="form__input form__input--full-width search__search-field search__search-field--transparent input--large input--epislon" type="search" value="<?php the_title(); ?>">
-					</li>		    					
-				</ul>
-			</form>
-    	</section>
-				
 	    <main id="main" role="main">
 	    
 	    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

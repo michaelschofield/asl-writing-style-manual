@@ -2,17 +2,6 @@
 			
 			<div id="content">
 
-		    	<section class="background-base has-background hero">
-					<form class="form" role="form">
-						<ul>
-							<li class="form__field">
-								<label class="form__label">How do I cite</label>
-								<input id="s" class="form__input form__input--full-width search__search-field search__search-field--transparent input--large input--epislon" type="search" value="<?php echo esc_attr( get_search_query() ); ?>">
-							</li>		    					
-						</ul>
-						<button id="test-button" href="<?php echo admin_url('admin-ajax.php?action=apa_search'); ?>">Ajax me</button>
-					</form>
-		    	</section>
 
 				<div id="inner-content" class="clearfix">
 
