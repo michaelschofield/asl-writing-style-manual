@@ -166,7 +166,7 @@ class ASL_Writing_Style_Manual_Admin {
 
 			'labels' => 
 				array(
-					'name' => __('Formatting Rules' ), 
+					'name' => __('Formatting' ), 
 					'singular_name' => __('Rule' ), 
 					'all_items' => __('All Rules' ), 
 					'add_new' => __('Add New Rule' ),
@@ -175,7 +175,7 @@ class ASL_Writing_Style_Manual_Admin {
 					'edit_item' => __('Edit Rule' ), 
 					'new_item' => __('New Rule' ), 
 					'view_item' => __('View Rule' ), 
-					'search_items' => __('Search Formatting Rules' ),
+					'search_items' => __('Search Formatting' ),
 					'not_found' =>  __('Nothing found.' ), 
 					'not_found_in_trash' => __('Nothing found in the trash' ), 
 					'parent_item_colon' => ''
@@ -207,7 +207,7 @@ class ASL_Writing_Style_Manual_Admin {
 
 			'labels' => 
 				array(
-					'name' => __('Usage and Grammar' ), 
+					'name' => __('Grammar and Usage' ), 
 					'singular_name' => __('Usage' ), 
 					'all_items' => __('All Examples' ), 
 					'add_new' => __('Add New Example' ),
