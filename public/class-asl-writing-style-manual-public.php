@@ -26,8 +26,25 @@ class ASL_Writing_Style_Manual_Public {
 		}
 	}
 
-	public function replace_search_results_template( $single ) {
+	public function replace_category_archive_template( $category ) {
+		
+		if ( is_category() ) {
+			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/category.php';
+		}
 
+		return $category;
+	}
+
+	public function replace_tag_archive_template( $tag ) {
+		
+		if ( is_tag() ) {
+			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/tag.php';
+		}
+
+		return $tag;
+	}
+
+	public function replace_search_results_template( $single ) {
 		
 
 		if ( is_search() ) {

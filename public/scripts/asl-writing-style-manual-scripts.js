@@ -1,5 +1,15 @@
 (function(){
 
+	/*------------------------------------*\
+		$APA-SEARCH
+	\*------------------------------------*/
+
+	/**
+	 * Do a WP_Query() using the #s keyword value as
+	 * the user types. Then, return the results in the
+	 * same screen.
+	 */
+
 	$( document ).on( 'keyup', '#s', function( e ) {
 
 		// Set a timeout
@@ -38,5 +48,34 @@
 		e.preventDefault();
 
 	});
+
+	/*------------------------------------*\
+		$SIDE-MENU
+	\*------------------------------------*/
+
+	/**
+	 * 
+	 * @hooks 'js--top-menu'
+	 *
+	 */
+
+	adjust_top_menu_height = function() {
+
+		var top_menu		= document.querySelector( '.js--top-menu' ),
+			responsive_viewport = window.innerWidth;
+
+		if ( responsive_viewport >= 700 ) {	
+			$( top_menu ).css( 'height', $( document ).height() - 275 + 'px' );
+		}
+
+	} 
+
+	adjust_top_menu_height();
+
+	$( window ).on( 'resize', function() {
+		adjust_top_menu_height();
+	});
+
+
 	
 })();
