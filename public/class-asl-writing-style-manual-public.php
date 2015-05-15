@@ -137,10 +137,9 @@ class ASL_Writing_Style_Manual_Public {
 		if ( $search->have_posts() ) : 
 
 		?>
-
+			<div class="hero">
 			<header>
 				<h1 class="archive-title hide-accessible"> Search Results: "<?php echo esc_attr(get_search_query()); ?>"</h1>
-				<p class="no-margin">Results matching: <strong><?php echo esc_attr( get_search_query() ); ?></strong></p>
 			</header>
 
 			<?php
@@ -157,7 +156,7 @@ class ASL_Writing_Style_Manual_Public {
 					    $count++;
 					    ?>
 		
-				    <article id="post-<?php the_ID(); ?>" <?php post_class('card--alt col--centered col-md--eightcol'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
+				    <article id="post-<?php the_ID(); ?>" <?php post_class('card--alt col--centered col-md--tencol'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
 				
 						<header data-type="Example">
 							<a href="<?php echo get_the_permalink(); ?>">
@@ -209,9 +208,9 @@ class ASL_Writing_Style_Manual_Public {
 							<?php endif; ?>
 
 							<?php if ( $fischler ) : ?>
-							<section class="accordion__section" id="<?php echo $count; ?>-fischler-rules">
-								<a href="#<?php echo $count; ?>-fischler-rules">
-									<h2 class="accordion__section__title">Fischler Rules</h2>
+							<section class="accordion__section" id="<?php echo $count; ?>-fischler-modifications">
+								<a href="#<?php echo $count; ?>-fischler-modifications">
+									<h2 class="accordion__section__title">Fischler Modifications</h2>
 								</a>
 
 								<div class="accordion__section__content">
@@ -223,6 +222,7 @@ class ASL_Writing_Style_Manual_Public {
 						</section>
 
 				    </article> <!-- end article -->
+				    </div>
 					
 				<?php
 

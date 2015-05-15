@@ -3,12 +3,13 @@
 			<div id="content">
 
 
-				<div id="inner-content" class="clearfix">
+				<div id="inner-content" class="clearfix wrap">
+
+					<div class="hero">
 
 
 					<header>
 						<h1 class="archive-title hide-accessible"> Search Results: "<?php echo esc_attr(get_search_query()); ?>"</h1>
-						<p class="no-margin">Results matching: <strong><?php echo esc_attr( get_search_query() ); ?></strong></p>
 					</header>						
 
 						<?php
@@ -36,7 +37,7 @@
 					    $count++;
 					    ?>
 		
-				    <article id="post-<?php the_ID(); ?>" <?php post_class('card--alt col--centered col-md--eightcol'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
+				    <article id="post-<?php the_ID(); ?>" <?php post_class('card--alt col--centered col-md--tencol'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
 				
 						<header data-type="Example">
 							<a href="<?php echo get_the_permalink(); ?>">
@@ -136,7 +137,7 @@
 					    <?php endif; ?>
 			
 				    </div> <!-- end #main -->
-    			
+				</div><!--/.hero-->    			
 			</div> <!-- end #content -->
 
 <?php get_footer(); ?>

@@ -2,7 +2,7 @@
 	
 	<div id="content">
 
-	    <main id="main" role="main">
+	    <main class="wrap clearfix" id="main" role="main">
 	    
 	    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -19,7 +19,7 @@
 		
 		    <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix hero'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
 				
-				<div class="card--alt col--centered col-md--eightcol">
+				<div class="card--alt col--centered col-md--tencol">
 
 					<header>
 						<h1 class="gamma" itemprop="headline"><?php the_title(); ?></h1>

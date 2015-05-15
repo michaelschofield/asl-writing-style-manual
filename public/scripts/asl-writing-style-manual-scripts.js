@@ -64,7 +64,7 @@
 		var top_menu		= document.querySelector( '.js--top-menu' ),
 			responsive_viewport = window.innerWidth;
 
-		if ( responsive_viewport >= 700 ) {	
+		if ( responsive_viewport >= 1024 ) {	
 			$( top_menu ).css( 'height', $( document ).height() - 275 + 'px' );
 		}
 
