@@ -119,7 +119,6 @@ class ASL_Writing_Style_Manual_Public {
 	    return $search;
 	}*/
 
-
 	public function asl_writing_style_manual_search_fetch_results() {
 		
 		$query = sanitize_text_field( $_POST[ 'query' ] );
@@ -128,7 +127,6 @@ class ASL_Writing_Style_Manual_Public {
 
 			'post_type' => array( 'reference', 'formatting', 'usage', 'page' ),
 			's' 		=> $query
-
 		);
 
 		$search = new WP_Query( $args );
