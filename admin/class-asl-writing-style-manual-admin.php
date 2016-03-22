@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ASL_Writing_Style_Manual_Admin {
 
@@ -33,26 +33,25 @@ class ASL_Writing_Style_Manual_Admin {
 		) );
 
 		if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post();
-				    
+
 	    $categories 		= get_the_category();
 	    $references 		= get_field( 'reference-list_examples' );
 	    $citations 			= get_field( 'in-text_examples' );
-	    $fischler			= get_post_meta( get_the_ID(), 'fischler_rule', true );
 	    $notes 				= get_field( 'asl_note' );
 	    $primary_example	= ( $references ? $references[0]['reference_example'] : null ); ?>
-		
+
 		<div class="card--alt col--centered clearfix">
 
 			<header>
 				<h1 class="gamma" itemprop="headline"><?php the_title(); ?></h1>
-				
+
 				<?php  echo ( has_excerpt() ? '<p>' . get_the_excerpt() . '</p>' : '' ); ?>
 			</header>
 
 
 			<?php if ( $primary_example ) : ?>
 			<figure class="citation__example">
-				<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>							
+				<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>
 			</figure>
 			<?php endif; ?>
 
@@ -90,18 +89,6 @@ class ASL_Writing_Style_Manual_Admin {
 				</section>
 				<?php endif; ?>
 
-				<?php if ( $fischler ) : ?>
-				<section class="accordion__section" id="<?php echo get_the_ID() ?>-fischler-rules">
-					<a href="#<?php echo get_the_ID() ?>-fischler-rules">
-						<h2 class="accordion__section__title">Fischler Rules</h2>
-					</a>
-
-					<div class="accordion__section__content">
-						<?php echo '<p>' . $fischler . '</p>'; ?>
-					</div>
-
-				</section>
-				<?php endif; ?>
 			</section>
 
 		</div><!--/.card-->
@@ -116,27 +103,27 @@ class ASL_Writing_Style_Manual_Admin {
 
 		return ob_get_clean();
 	}
-	
+
 	public function create_the_reference_post_type() {
 
-		register_post_type( 
+		register_post_type(
 
 			'reference', array(
 
-			'labels' => 
+			'labels' =>
 				array(
-					'name' => __('References' ), 
-					'singular_name' => __('Reference' ), 
-					'all_items' => __('All References' ), 
+					'name' => __('References' ),
+					'singular_name' => __('Reference' ),
+					'all_items' => __('All References' ),
 					'add_new' => __('Add New Reference' ),
-					'add_new_item' => __('Add New Reference' ), 
-					'edit' => __( 'Edit'  ), 
-					'edit_item' => __('Edit Reference' ), 
-					'new_item' => __('New Reference' ), 
-					'view_item' => __('View Reference' ), 
+					'add_new_item' => __('Add New Reference' ),
+					'edit' => __( 'Edit'  ),
+					'edit_item' => __('Edit Reference' ),
+					'new_item' => __('New Reference' ),
+					'view_item' => __('View Reference' ),
 					'search_items' => __('Search References' ),
-					'not_found' =>  __('Nothing found.' ), 
-					'not_found_in_trash' => __('Nothing found in the trash' ), 
+					'not_found' =>  __('Nothing found.' ),
+					'not_found_in_trash' => __('Nothing found in the trash' ),
 					'parent_item_colon' => ''
 				),
 
@@ -147,7 +134,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'reference', /* you can rename the slug here */
 			'capability_type' => 'post',
@@ -160,24 +147,24 @@ class ASL_Writing_Style_Manual_Admin {
 
 	public function create_the_formatting_post_type() {
 
-		register_post_type( 
+		register_post_type(
 
 			'formatting', array(
 
-			'labels' => 
+			'labels' =>
 				array(
-					'name' => __('Formatting' ), 
-					'singular_name' => __('Rule' ), 
-					'all_items' => __('All Rules' ), 
+					'name' => __('Formatting' ),
+					'singular_name' => __('Rule' ),
+					'all_items' => __('All Rules' ),
 					'add_new' => __('Add New Rule' ),
-					'add_new_item' => __('Add New Rule' ), 
-					'edit' => __( 'Edit'  ), 
-					'edit_item' => __('Edit Rule' ), 
-					'new_item' => __('New Rule' ), 
-					'view_item' => __('View Rule' ), 
+					'add_new_item' => __('Add New Rule' ),
+					'edit' => __( 'Edit'  ),
+					'edit_item' => __('Edit Rule' ),
+					'new_item' => __('New Rule' ),
+					'view_item' => __('View Rule' ),
 					'search_items' => __('Search Formatting' ),
-					'not_found' =>  __('Nothing found.' ), 
-					'not_found_in_trash' => __('Nothing found in the trash' ), 
+					'not_found' =>  __('Nothing found.' ),
+					'not_found_in_trash' => __('Nothing found in the trash' ),
 					'parent_item_colon' => ''
 				),
 
@@ -188,7 +175,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'formatting', /* you can rename the slug here */
 			'capability_type' => 'post',
@@ -201,24 +188,24 @@ class ASL_Writing_Style_Manual_Admin {
 
 	public function create_the_usage_post_type() {
 
-		register_post_type( 
+		register_post_type(
 
 			'usage', array(
 
-			'labels' => 
+			'labels' =>
 				array(
-					'name' => __('Grammar and Usage' ), 
-					'singular_name' => __('Usage' ), 
-					'all_items' => __('All Examples' ), 
+					'name' => __('Grammar and Usage' ),
+					'singular_name' => __('Usage' ),
+					'all_items' => __('All Examples' ),
 					'add_new' => __('Add New Example' ),
-					'add_new_item' => __('Add New Example' ), 
-					'edit' => __( 'Edit'  ), 
-					'edit_item' => __('Edit Example' ), 
-					'new_item' => __('New Example' ), 
-					'view_item' => __('View Example' ), 
+					'add_new_item' => __('Add New Example' ),
+					'edit' => __( 'Edit'  ),
+					'edit_item' => __('Edit Example' ),
+					'new_item' => __('New Example' ),
+					'view_item' => __('View Example' ),
 					'search_items' => __('Search Usage Examples' ),
-					'not_found' =>  __('Nothing found.' ), 
-					'not_found_in_trash' => __('Nothing found in the trash' ), 
+					'not_found' =>  __('Nothing found.' ),
+					'not_found_in_trash' => __('Nothing found in the trash' ),
 					'parent_item_colon' => ''
 				),
 
@@ -229,7 +216,7 @@ class ASL_Writing_Style_Manual_Admin {
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */ 
+			'menu_position' => -1, /* this is what order you want it to appear in on the left hand side menu */
 			'menu_icon' => plugin_dir_path( dirname( __FILE__ ) ) . 'library/images/custom-post-icon.png', /* the icon for the custom post type menu */
 			'has_archive' => 'usage', /* you can rename the slug here */
 			'capability_type' => 'post',
@@ -244,57 +231,7 @@ class ASL_Writing_Style_Manual_Admin {
 
 		if(function_exists("register_field_group"))
 		{
-			register_field_group(array (
-				'id' => 'acf_fischler-rules',
-				'title' => 'Fischler Rules',
-				'fields' => array (
-					array (
-						'key' => 'field_54c944e99339d',
-						'label' => 'Fischler Rule',
-						'name' => 'fischler_rule',
-						'type' => 'wysiwyg',
-						'default_value' => '',
-						'toolbar' => 'full',
-						'media_upload' => 'no',
-					),
-				),
-				'location' => array (
-					array (
-						array (
-							'param' => 'post_type',
-							'operator' => '==',
-							'value' => 'reference',
-							'order_no' => 0,
-							'group_no' => 0,
-						),
-					),
-					array (
-						array (
-							'param' => 'post_type',
-							'operator' => '==',
-							'value' => 'usage',
-							'order_no' => 0,
-							'group_no' => 1,
-						),
-					),
-					array (
-						array (
-							'param' => 'post_type',
-							'operator' => '==',
-							'value' => 'formatting',
-							'order_no' => 0,
-							'group_no' => 2,
-						),
-					),
-				),
-				'options' => array (
-					'position' => 'normal',
-					'layout' => 'no_box',
-					'hide_on_screen' => array (
-					),
-				),
-				'menu_order' => 0,
-			));
+
 			register_field_group(array (
 				'id' => 'acf_notes',
 				'title' => 'Notes',

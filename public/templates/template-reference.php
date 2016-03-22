@@ -2,14 +2,14 @@
 
 	<header>
 		<h1 class="gamma" itemprop="headline"><?php the_title(); ?></h1>
-		
+
 		<?php  echo ( has_excerpt() ? '<p>' . get_the_excerpt() . '</p>' : '' ); ?>
 	</header>
 
 
 	<?php if ( $primary_example ) : ?>
 	<figure class="citation__example">
-		<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>							
+		<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>
 	</figure>
 	<?php endif; ?>
 
@@ -47,18 +47,6 @@
 		</section>
 		<?php endif; ?>
 
-		<?php if ( $fischler ) : ?>
-		<section class="accordion__section" id="fischler-rules">
-			<a href="#fischler-rules">
-				<h2 class="accordion__section__title">Fischler Rules</h2>
-			</a>
-
-			<div class="accordion__section__content">
-				<?php echo '<p>' . $fischler . '</p>'; ?>
-			</div>
-
-		</section>
-		<?php endif; ?>
 	</section>
 
 </div><!--/.card-->

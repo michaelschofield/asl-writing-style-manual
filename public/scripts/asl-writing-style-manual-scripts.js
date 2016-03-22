@@ -12,6 +12,8 @@
 
 	$( document ).on( 'keyup', '#s', function( e ) {
 
+		if ( this.value.length < 4 ) return;
+
 		// Set a timeout
 		clearTimeout( $.data( this, 'timer' ) );
 
@@ -31,7 +33,11 @@
 				},
 
 				success : function( response ) {
+
 					$( '#inner-content' ).html( response );
+					_gaq.push(['_trackEvent', 'APA', 'search', query ]);
+					//ga( 'send', 'event', 'APA', 'search', query );
+
 				}
 
 			});
@@ -42,7 +48,7 @@
 
 		else {
 
-			$( this ).data( 'timer', setTimeout( 100 ) );
+			$( this ).data( 'timer', setTimeout( 200 ) );
 		}
 
 		e.preventDefault();

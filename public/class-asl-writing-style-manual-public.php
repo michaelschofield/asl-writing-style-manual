@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ASL_Writing_Style_Manual_Public {
 
@@ -10,7 +10,7 @@ class ASL_Writing_Style_Manual_Public {
 
 	public function enqueue_unique_styles() {
 		if (!is_admin()) {
-		    wp_register_style( 'asl-writing-style-manual-stylesheet', '//sherman.library.nova.edu/cdn/styles/css/public-global/s--apa.css', array( 'pls-stylesheet' ), '1.1', 'all' );
+		    wp_register_style( 'asl-writing-style-manual-stylesheet', '//sherman.library.nova.edu/cdn/styles/css/public-global/s--apa.css', array( 'legacy-css' ), '1.1', 'all' );
 		    wp_enqueue_style( 'asl-writing-style-manual-stylesheet' );
 		}
 	}
@@ -27,7 +27,7 @@ class ASL_Writing_Style_Manual_Public {
 	}
 
 	public function replace_category_archive_template( $category ) {
-		
+
 		if ( is_category() ) {
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/category.php';
 		}
@@ -36,7 +36,7 @@ class ASL_Writing_Style_Manual_Public {
 	}
 
 	public function replace_tag_archive_template( $tag ) {
-		
+
 		if ( is_tag() ) {
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/tag.php';
 		}
@@ -45,7 +45,7 @@ class ASL_Writing_Style_Manual_Public {
 	}
 
 	public function replace_search_results_template( $single ) {
-		
+
 
 		if ( is_search() ) {
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'public/templates/search.php';
@@ -120,7 +120,7 @@ class ASL_Writing_Style_Manual_Public {
 	}*/
 
 	public function asl_writing_style_manual_search_fetch_results() {
-		
+
 		$query = sanitize_text_field( $_POST[ 'query' ] );
 
 		$args = array(
@@ -132,7 +132,7 @@ class ASL_Writing_Style_Manual_Public {
 		$search = new WP_Query( $args );
 
 		$count = 0;
-		if ( $search->have_posts() ) : 
+		if ( $search->have_posts() ) :
 
 		?>
 			<div class="hero">
@@ -147,27 +147,25 @@ class ASL_Writing_Style_Manual_Public {
 					    $categories 		= get_the_category();
 					    $references 		= get_field( 'reference-list_examples' );
 					    $citations 			= get_field( 'in-text_examples' );
-					    $fischler			= get_post_meta( get_the_ID(), 'fischler_rule', true );
-					    //$notes 				= get_post_meta( get_the_ID(), 'asl_note', true );
 					    $notes 				= get_field( 'asl_note' );
 					    $primary_example	= ( $references ? $references[0]['reference_example'] : null );
 					    $count++;
 					    ?>
-		
+
 				    <article id="post-<?php the_ID(); ?>" <?php post_class('card--alt col--centered col-md--tencol'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
-				
+
 						<header data-type="Example">
 							<a href="<?php echo get_the_permalink(); ?>">
 							<h2 class="gamma" itemprop="headline"><?php the_title(); ?></h1>
 							</a>
-							
+
 							<?php  echo ( has_excerpt() ? '<p>' . get_the_excerpt() . '</p>' : '' ); ?>
 						</header>
 
 
 						<?php if ( $primary_example ) : ?>
 						<figure class="citation__example">
-							<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>							
+							<?php echo strip_tags( $primary_example, '<b><i><em><strong><b><i><em><strong><br><p>' ); ?>
 						</figure>
 						<?php endif; ?>
 
@@ -205,23 +203,11 @@ class ASL_Writing_Style_Manual_Public {
 							</section>
 							<?php endif; ?>
 
-							<?php if ( $fischler ) : ?>
-							<section class="accordion__section" id="<?php echo $count; ?>-fischler-modifications">
-								<a href="#<?php echo $count; ?>-fischler-modifications">
-									<h2 class="accordion__section__title">Fischler Modifications</h2>
-								</a>
-
-								<div class="accordion__section__content">
-									<?php echo '<p>' . $fischler . '</p>'; ?>
-								</div>
-
-							</section>
-							<?php endif; ?>
 						</section>
 
 				    </article> <!-- end article -->
 				    </div>
-					
+
 				<?php
 
 				endwhile;
@@ -232,7 +218,7 @@ class ASL_Writing_Style_Manual_Public {
 
 				// We muse use die() at the end, otherwise admin-ajax.php
 				// will execute it's own die(0) code, echoing an additional
-				// zero in the response.		
+				// zero in the response.
 				die();
 	}
 
